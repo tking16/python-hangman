@@ -1,7 +1,22 @@
+
+from bs4 import BeautifulSoup
+import urllib.request
+import random
+
+with urllib.request.urlopen('http://www.thefreedictionary.com/dictionary.htm') as response:
+    html = response.read()
+
+words = []
+soup = BeautifulSoup(html, 'html.parser') # parses the html
+item = soup.find("ul",class_="lst") #gets the block of random words
+
+#Capture the words from the onlione dictionary
+for word in item.find_all('li'):
+    words.append(word.get_text())
 print("Welcome to Hangman by Theo King")
 
-#variables for correct word
-answer = "Jujimufu"
+
+answer = random.choice(words)
 correct_letters = []
 hidden_letters = []
 
@@ -10,8 +25,7 @@ for letter in answer:
     hidden_letters.append("_")
 
 print(" ".join(hidden_letters))
-attempts = 5
-
+attempts = 10
 while attempts > 0:
     print("Guesses left: " + str(attempts))
     count = -1 
@@ -26,11 +40,14 @@ while attempts > 0:
                 hidden_letters[correct_letters.index(player_guess,count)] = player_guess
         print(" ".join(hidden_letters))
     elif correct_letters == hidden_letters or player_guess.lower() == answer.lower():
-            print("Congratulations! You win!")
-            break
+        print("Congratulations! You win!")
+        break
     else:
         print("Sorry, try again :(")
         attempts -= 1
 
 else:
-    print("you lose")
+    print("you lose, the answer was: " + answer.upper())
+    print("potential words:")
+    for word in words:
+        print(word)
