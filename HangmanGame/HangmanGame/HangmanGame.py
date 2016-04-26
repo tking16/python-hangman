@@ -26,6 +26,7 @@ for letter in answer:
 
 print(" ".join(hidden_letters))
 attempts = 10
+
 while attempts > 0:
     print("Guesses left: " + str(attempts))
     count = -1 
@@ -39,15 +40,15 @@ while attempts > 0:
             if player_guess == letter:
                 hidden_letters[correct_letters.index(player_guess,count)] = player_guess
         print(" ".join(hidden_letters))
-    elif correct_letters == hidden_letters or player_guess.lower() == answer.lower():
-        print("Congratulations! You win!")
-        break
-    else:
+    elif player_guess not in correct_letters and player_guess.lower() != answer.lower():
         print("Sorry, try again :(")
         attempts -= 1
+
+    if correct_letters == hidden_letters or player_guess.lower() == answer.lower():
+        print("Congratulations! You win!")
+        break
 
 else:
     print("you lose, the answer was: " + answer.upper())
     print("potential words:")
-    for word in words:
-        print(word)
+    print(', '.join(words))
