@@ -4,7 +4,7 @@ This is a simple hangman game written in Python. I have only just recently learn
 
 UPDATE:
 
-The game now retrieves a list of randomized words from [link](http://www.thefreedictionary.com/dictionary.htm)
+The game now retrieves a list of randomized words from [TheFreeDictionary](http://www.thefreedictionary.com/dictionary.htm)
 
 ###package installation
 
